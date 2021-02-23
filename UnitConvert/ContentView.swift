@@ -23,6 +23,7 @@ struct ContentView: View {
                             Text("\(self.volumeUnits[$0])")
                         }
                     }
+                    .pickerStyle(SegmentedPickerStyle())
                 }
             }
             .navigationBarTitle("UnitConvert")
