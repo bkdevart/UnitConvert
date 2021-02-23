@@ -8,9 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var inputNumber = ""
+    @State private var inputUnit = ""
+    @State private var outputUnit = ""
+    
+    let volumeUnits = ["milliliters", "liters", "cups", "pints", "gallons"]
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            Form {
+                Section(header: Text("Input Unit")) {
+                    Picker("Input Unit", selection: $inputUnit) {
+                        ForEach(0 ..< volumeUnits.count) {
+                            Text("\(self.volumeUnits[$0])")
+                        }
+                    }
+                }
+            }
+            .navigationBarTitle("UnitConvert")
+        }
     }
 }
 
