@@ -9,17 +9,51 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var inputNumber = ""
-    @State private var inputUnit = ""
-    @State private var outputUnit = ""
+    @State private var inputUnit = 0
+    @State private var outputUnit = 0
     
     let volumeUnits = ["milliliters", "liters", "cups", "pints", "gallons"]
     
     var convertedValue: Double {
         // TODO calculations
         let inputDouble = Double(inputNumber) ?? 0
-        // TODO figure out how to factor correct unit
-        let inputMeasure = Measurement(value: inputDouble, unit: UnitVolume.bushels)
-        let value = inputMeasure.converted(to: .imperialTeaspoons).value
+        let inputSelection = volumeUnits[inputUnit]
+        let outputSelection = volumeUnits[outputUnit]
+        var inputMeasure = Measurement(value: inputDouble, unit: UnitVolume.milliliters)
+        var value: Double
+
+        // doing a case statement until more elegant solution found
+        switch inputSelection {
+        case "milliliters":
+            inputMeasure = Measurement(value: inputDouble, unit: UnitVolume.milliliters)
+        case "liters":
+            inputMeasure = Measurement(value: inputDouble, unit: UnitVolume.liters)
+        case "cups":
+            inputMeasure = Measurement(value: inputDouble, unit: UnitVolume.cups)
+        case "pints":
+            inputMeasure = Measurement(value: inputDouble, unit: UnitVolume.pints)
+        case "gallons":
+            inputMeasure = Measurement(value: inputDouble, unit: UnitVolume.gallons)
+            print("Gallons")
+        default:
+            inputMeasure = Measurement(value: inputDouble, unit: UnitVolume.milliliters)
+        }
+
+        switch outputSelection {
+        case "milliliters":
+            value = inputMeasure.converted(to: .milliliters).value
+        case "liters":
+            value = inputMeasure.converted(to: .liters).value
+        case "cups":
+            value = inputMeasure.converted(to: .cups).value
+        case "pints":
+            value = inputMeasure.converted(to: .pints).value
+        case "gallons":
+            value = inputMeasure.converted(to: .gallons).value
+        default:
+            value = inputMeasure.converted(to: .milliliters).value
+        }
+
         return value
     }
     
