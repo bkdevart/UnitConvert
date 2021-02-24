@@ -15,8 +15,11 @@ struct ContentView: View {
     let volumeUnits = ["milliliters", "liters", "cups", "pints", "gallons"]
     
     var convertedValue: Double {
-        // TODO do calculations
-        let value = 2.2  // placeholder until real calc in
+        // TODO calculations
+        let inputDouble = Double(inputNumber) ?? 0
+        // TODO figure out how to factor correct unit
+        let inputMeasure = Measurement(value: inputDouble, unit: UnitVolume.bushels)
+        let value = inputMeasure.converted(to: .imperialTeaspoons).value
         return value
     }
     
@@ -25,6 +28,7 @@ struct ContentView: View {
             Form {
                 Section(header: Text("Input Value")) {
                     TextField("Value", text: $inputNumber)
+                        .keyboardType(.decimalPad)
                 }
                 
                 Section(header: Text("Input Unit")) {
@@ -46,7 +50,7 @@ struct ContentView: View {
                 }
                 
                 Section(header: Text("Converted Value")) {
-                    Text("$\(convertedValue, specifier: "%.2f")")
+                    Text("\(convertedValue, specifier: "%.2f")")
                 }
             }
             .navigationBarTitle("UnitConvert")
