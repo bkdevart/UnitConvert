@@ -15,7 +15,6 @@ struct ContentView: View {
     let volumeUnits = ["milliliters", "liters", "cups", "pints", "gallons"]
     
     var convertedValue: Double {
-        // TODO calculations
         let inputDouble = Double(inputNumber) ?? 0
         let inputSelection = volumeUnits[inputUnit]
         let outputSelection = volumeUnits[outputUnit]
@@ -53,6 +52,8 @@ struct ContentView: View {
         default:
             value = inputMeasure.converted(to: .milliliters).value
         }
+        // TODO make use of this for better output in the future
+        // let stringValue = MeasurementFormatter().string(from: value)
 
         return value
     }
